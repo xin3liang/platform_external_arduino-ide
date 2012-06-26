@@ -1,0 +1,3 @@
+sambausb.name=SAM-BA
+sambausb.communication=usb
+sambausb.protocol=sam-ba
