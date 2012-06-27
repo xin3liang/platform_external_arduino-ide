@@ -196,14 +196,6 @@
     <!-- Unzip AVR tools -->
     <!-- <unzip dest="macosx/work/Arduino.app/Contents/Resources/Java/hardware" src="macosx/dist/tools-universal.zip" overwrite="false"/> -->
 
-    <exec executable="unzip">
-      <arg value="-q" />
-      <arg value="-n" />
-      <arg value="-d" />
-      <arg value="macosx/work/Arduino.app/Contents/Resources/Java/hardware" />
-      <arg value="macosx/dist/tools-universal.zip" />
-    </exec>
-
     <copy todir="macosx/work/Arduino.app/Contents/Resources/Java/hardware/tools/">    
       <fileset file="macosx/dist/bossac" />
       <fileset file="macosx/dist/adk2tool" />
@@ -213,10 +205,6 @@
     <chmod file="macosx/work/Arduino.app/Contents/Resources/Java/hardware/tools/bossac" perm="+x" />
     <chmod file="macosx/work/Arduino.app/Contents/Resources/Java/hardware/tools/adk2tool" perm="+x" />
     <chmod file="macosx/work/Arduino.app/Contents/Resources/Java/hardware/tools/adk2install" perm="+x" />
-
-    <copy todir="macosx/work/Arduino.app/Contents/Resources/Java/hardware/tools/avr/avr/include/avr">    
-      <fileset file="macosx/dist/eeprom.h" />
-    </copy>
 
     <antcall target="assemble">
       <param name="target.path" value="macosx/work/Arduino.app/Contents/Resources/Java" />
@@ -403,7 +391,6 @@
       <fileset dir="linux/dist" includes="tools/**" />
     </copy>
 
-    <chmod perm="755" file="linux/work/hardware/tools/avrdude" />
     <chmod perm="755" file="linux/work/hardware/tools/bossac" />
     <chmod perm="755" file="linux/work/hardware/tools/bossac64" />
     <chmod perm="755" file="linux/work/hardware/tools/adk2tool" />
@@ -416,24 +403,11 @@
   </target>
 
   <target name="linux32-build" depends="linux-build" description="Build linux (32-bit) version">
-    <!-- Unzip AVR tools -->
-    <exec executable="tar" dir="linux/work/hardware">
-      <arg value="-xjf"/>
-      <arg value="../../avr_tools_linux32.tar.bz2"/>
-    </exec>
   </target>
 
   <target name="linux64-build" depends="linux-build" description="Build linux (64-bit) version">
-    <copy tofile="linux/work/hardware/tools/avrdude" file="linux/dist/tools/avrdude64" overwrite="true" />
     <copy tofile="linux/work/lib/librxtxSerial.so" file="linux/dist/lib/librxtxSerial64.so" overwrite="true" />
 
-    <chmod perm="755" file="linux/work/hardware/tools/avrdude" />
-
-    <!-- Unzip AVR tools -->
-    <exec executable="tar" dir="linux/work/hardware">
-      <arg value="-xjf"/>
-      <arg value="../../avr_tools_linux64.tar.bz2"/>
-    </exec>
   </target>
   
   <target name="linux32-run" depends="linux32-build" 
@@ -589,13 +563,6 @@
       <fileset dir="windows/dist" includes="drivers/**" />
     </copy>
     
-    <!-- Unzip AVR tools -->
-    <unzip dest="windows/work/hardware" src="windows/avr_tools.zip" overwrite="false"/>
-
-    <copy todir="windows/work/hardware/tools/avr/avr/include/avr">
-      <fileset file="windows/eeprom.h" />
-    </copy>
-
     <!-- Copy bossac.exe tool -->
     <copy todir="windows/work/hardware/tools">
       <fileset file="windows/bossac.exe" />
@@ -604,7 +571,7 @@
       <fileset file="windows/work/hardware/tools/bossac.exe" />
     </chmod>
 
-    <!-- Copy bossac.exe tool -->
+    <!-- Copy adk2tool.exe tool -->
     <copy todir="windows/work/hardware/tools">
       <fileset file="windows/adk2tool.exe" />
       <fileset file="windows/adk2inst.exe" />
