@@ -243,11 +243,11 @@ run.present.exclusive.macosx = true
 
 # ARDUINO PREFERENCES
 target_package = arduino
-target_platform = avr
-board = uno
+target_platform = sam
+board = adk2
 software=ARDUINO
 
-programmer = arduino:avrispmkii
+programmer = arduino:sambausb
 
 upload.using = bootloader
 upload.verify = true
